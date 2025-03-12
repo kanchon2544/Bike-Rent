@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สรุปยอดรายวัน - เช่าจักรยาน</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label, input, textarea {
+            width: 100%;
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .summary {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>สรุปยอดรายวัน - เช่าจักรยาน</h2>
+        <label>วันที่:</label>
+        <input type="date" id="date">
+
+        <label>จำนวนจักรยานที่เช่า:</label>
+        <input type="number" id="totalBikes" min="0">
+
+        <label>จำนวนเงินรวมทั้งหมด (บาท):</label>
+        <input type="number" id="totalAmount" min="0">
+
+        <label>จำนวนเงินทอน (บาท):</label>
+        <input type="number" id="change" min="0">
+
+        <label>จำนวนเงินสด (บาท):</label>
+        <input type="number" id="cash" min="0">
+
+        <label>จำนวนยอดโอน (บาท):</label>
+        <input type="number" id="transfer" min="0">
+
+        <label>รายจ่ายวันนี้ (บาท):</label>
+        <input type="number" id="expense" min="0">
+
+        <label>สาเหตุรายจ่าย:</label>
+        <textarea id="expenseReason"></textarea>
+
+        <label>หมายเหตุเพิ่มเติม:</label>
+        <textarea id="notes"></textarea>
+
+        <button onclick="generateSummary()">สรุปยอด</button>
+    </div>
+
+    <div class="container summary hidden" id="summaryContainer">
+        <h3>บิลสรุปยอดรายวัน</h3>
+        <p id="summaryText"></p>
+        <button onclick="captureSummary()">บันทึก / แชร์</button>
+    </div>
+
+    <script>
+        function generateSummary() {
+            let date = document.getElementById("date").value;
+            let totalBikes = document.getElementById("totalBikes").value;
+            let totalAmount = document.getElementById("totalAmount").value;
+            let change = document.getElementById("change").value;
+            let cash = document.getElementById("cash").value;
+            let transfer = document.getElementById("transfer").value;
+            let expense = document.getElementById("expense").value;
+            let expenseReason = document.getElementById("expenseReason").value;
+            let notes = document.getElementById("notes").value;
+
+            let remainingCash = cash - expense;
+
+            let summary = `
+                วันที่: ${date}<br>
+                จำนวนจักรยานที่เช่า: ${totalBikes} คัน<br>
+                จำนวนเงินรวมทั้งหมด: ${totalAmount} บาท<br>
+                จำนวนเงินทอน: ${change} บาท<br>
+                จำนวนเงินสด: ${cash} บาท<br>
+                จำนวนยอดโอน: ${transfer} บาท<br>
+                รายจ่ายวันนี้: ${expense} บาท (${expenseReason})<br>
+                เงินสดคงเหลือหลังหักรายจ่าย: ${remainingCash} บาท<br>
+                หมายเหตุ: ${notes}<br>
+            `;
+
+            document.getElementById("summaryText").innerHTML = summary;
+            document.getElementById("summaryContainer").classList.remove("hidden");
+        }
+
+        function captureSummary() {
+            let summaryElement = document.getElementById("summaryContainer");
+            html2canvas(summaryElement).then(canvas => {
+                let link = document.createElement("a");
+                link.href = canvas.toDataURL("image/png");
+                link.download = "สรุปยอดรายวัน.png";
+                link.click();
+            });
+        }
+    </script>
+</body>
+</html>
