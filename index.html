@@ -3,46 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สรุปยอดรายวันเช่าจักรยาน</title>
+    <title>สรุปยอดรายวัน - เช่าจักรยาน</title>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
             padding: 20px;
+            text-align: center;
         }
         .container {
-            max-width: 600px;
+            max-width: 90%;
             margin: auto;
-            background: white;
+            background: #ffffff;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
         }
-        label, input, textarea {
+        label {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        input, textarea {
             width: 100%;
-            display: block;
+            padding: 12px;
             margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
         }
         button {
             width: 100%;
-            background: #007bff;
+            background: #0288d1;
             color: white;
-            padding: 10px;
+            padding: 15px;
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            font-size: 18px;
             margin-top: 10px;
         }
         button:hover {
-            background: #0056b3;
+            background: #0277bd;
         }
         .summary {
             margin-top: 20px;
             padding: 15px;
-            background: #fff;
+            background: #e8f5e9;
             border-radius: 10px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         .hidden {
             display: none;
@@ -103,15 +113,15 @@
             let remainingCash = cash - expense;
 
             let summary = `
-                วันที่: ${date}<br>
-                จำนวนจักรยานที่เช่า: ${totalBikes} คัน<br>
-                จำนวนเงินรวมทั้งหมด: ${totalAmount} บาท<br>
-                จำนวนเงินทอน: ${change} บาท<br>
-                จำนวนเงินสด: ${cash} บาท<br>
-                จำนวนยอดโอน: ${transfer} บาท<br>
-                รายจ่ายวันนี้: ${expense} บาท (${expenseReason})<br>
-                เงินสดคงเหลือหลังหักรายจ่าย: ${remainingCash} บาท<br>
-                หมายเหตุ: ${notes}<br>
+                <strong>วันที่:</strong> ${date}<br>
+                <strong>จำนวนจักรยานที่เช่า:</strong> ${totalBikes} คัน<br>
+                <strong>จำนวนเงินรวมทั้งหมด:</strong> ${totalAmount} บาท<br>
+                <strong>จำนวนเงินทอน:</strong> ${change} บาท<br>
+                <strong>จำนวนเงินสด:</strong> ${cash} บาท<br>
+                <strong>จำนวนยอดโอน:</strong> ${transfer} บาท<br>
+                <strong>รายจ่ายวันนี้:</strong> ${expense} บาท (${expenseReason})<br>
+                <strong>เงินสดคงเหลือหลังหักรายจ่าย:</strong> ${remainingCash} บาท<br>
+                <strong>หมายเหตุ:</strong> ${notes}<br>
             `;
 
             document.getElementById("summaryText").innerHTML = summary;
