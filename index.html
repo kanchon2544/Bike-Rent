@@ -8,18 +8,21 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            background: url(bike1.jpg) no-repeat center center fixed;
+            background-size: cover;
             padding: 20px;
             text-align: center;
+            color: #fff;
         }
         .container {
             max-width: 90%;
             margin: auto;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: left;
+            color: #333;
         }
         label {
             font-weight: bold;
@@ -50,12 +53,23 @@
         .summary {
             margin-top: 20px;
             padding: 15px;
-            background: #e8f5e9;
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         .hidden {
             display: none;
+        }
+        .summary-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: url('https://source.unsplash.com/600x800/?receipt') no-repeat center;
+            background-size: contain;
+            opacity: 0.1;
         }
     </style>
 </head>
@@ -86,9 +100,6 @@
         <label>สาเหตุรายจ่าย:</label>
         <textarea id="expenseReason"></textarea>
 
-        <label>รายจ่ายหักเงินสดคงเหลือ (บาท):</label>
-        <input type="number" id="expense" min="0">
-
         <label>หมายเหตุเพิ่มเติม:</label>
         <textarea id="notes"></textarea>
 
@@ -96,6 +107,7 @@
     </div>
 
     <div class="container summary hidden" id="summaryContainer">
+        <div class="summary-background"></div>
         <h3>บิลสรุปยอดรายวัน</h3>
         <p id="summaryText"></p>
         <button onclick="captureSummary()">บันทึก / แชร์</button>
@@ -113,7 +125,7 @@
             let expenseReason = document.getElementById("expenseReason").value;
             let notes = document.getElementById("notes").value;
 
-            let remainingCash = cash - expense;
+            let remainingCash = (cash - change) - expense;
 
             let summary = `
                 <strong>วันที่:</strong> ${date}<br>
@@ -133,7 +145,7 @@
 
         function captureSummary() {
             let summaryElement = document.getElementById("summaryContainer");
-            html2canvas(summaryElement).then(canvas => {
+            html2canvas(summaryElement, { backgroundColor: null }).then(canvas => {
                 let link = document.createElement("a");
                 link.href = canvas.toDataURL("image/png");
                 link.download = "สรุปยอดรายวัน.png";
