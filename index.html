@@ -8,8 +8,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            background-image: url(gta.jpg);
+            background: url(gta.jpg) no-repeat center center fixed;
+            background-color: #f4f4f4;
             padding: 20px;
         }
         .container {
@@ -54,37 +54,37 @@
     <div class="container">
         <h2>สรุปยอดรายวัน - เช่าจักรยาน</h2>
         
-        <label>วันที่:</label>
+        <label for="date">วันที่:</label>
         <input type="date" id="date">
 
-        <label>จำนวนจักรยานที่เช่า:</label>
-        <input type="number" id="totalBikes" min="0" value="0">
+        <label for="totalBikes">จำนวนจักรยานที่เช่า:</label>
+        <input type="number" id="totalBikes" min="0">
 
-        <label>จำนวนเงินรวมทั้งหมด (บาท):</label>
-        <input type="number" id="totalAmount" min="0" value="0">
+        <label for="totalAmount">จำนวนเงินรวมทั้งหมด (บาท):</label>
+        <input type="number" id="totalAmount" min="0">
 
-        <label>จำนวนเงินทอน (บาท):</label>
-        <input type="number" id="change" min="0" value="0">
+        <label for="change">จำนวนเงินทอน (บาท):</label>
+        <input type="number" id="change" min="0">
 
-        <label>จำนวนเงินสด (บาท):</label>
-        <input type="number" id="cash" min="0" value="0">
+        <label for="cash">จำนวนเงินสด (บาท):</label>
+        <input type="number" id="cash" min="0">
 
-        <label>จำนวนยอดโอน (บาท):</label>
-        <input type="number" id="transfer" min="0" value="0">
+        <label for="transfer">จำนวนยอดโอน (บาท):</label>
+        <input type="number" id="transfer" min="0">
 
-        <label>รายจ่ายวันนี้ (บาท):</label>
-        <input type="number" id="expense" min="0" value="0">
+        <label for="expense">รายจ่ายวันนี้ (บาท):</label>
+        <input type="number" id="expense" min="0">
 
-        <label>สาเหตุรายจ่าย:</label>
+        <label for="expenseReason">สาเหตุรายจ่าย:</label>
         <textarea id="expenseReason"></textarea>
 
-        <label>หักรายจ่าย (บาท):</label>
-        <input type="number" id="expenseDeduction" min="0" value="0">
+        <label for="expenseDeduction">หักรายจ่าย (บาท):</label>
+        <input type="number" id="expenseDeduction" min="0">
 
-        <label>เงินสดคงเหลือหลังหักรายจ่าย (บาท):</label>
-        <input type="number" id="remainingCash" min="0" value="0">
+        <label for="remainingCash">เงินสดคงเหลือหลังหักรายจ่าย (บาท):</label>
+        <input type="number" id="remainingCash" min="0">
 
-        <label>หมายเหตุเพิ่มเติม:</label>
+        <label for="notes">หมายเหตุเพิ่มเติม:</label>
         <textarea id="notes"></textarea>
 
         <button onclick="generateSummary()">สรุปยอด</button>
@@ -98,29 +98,29 @@
 
     <script>
         function generateSummary() {
-            let date = document.getElementById("date").value;
-            let totalBikes = parseInt(document.getElementById("totalBikes").value) || 0;
-            let totalAmount = parseFloat(document.getElementById("totalAmount").value) || 0;
-            let change = parseFloat(document.getElementById("change").value) || 0;
-            let cash = parseFloat(document.getElementById("cash").value) || 0;
-            let transfer = parseFloat(document.getElementById("transfer").value) || 0;
-            let expense = parseFloat(document.getElementById("expense").value) || 0;
-            let expenseReason = document.getElementById("expenseReason").value || "ไม่มี";
-            let expenseDeduction = parseFloat(document.getElementById("expenseDeduction").value) || 0;
-            let remainingCash = parseFloat(document.getElementById("remainingCash").value) || 0;
-            let notes = document.getElementById("notes").value || "ไม่มี";
+            let date = document.getElementById("date").value || "-";
+            let totalBikes = document.getElementById("totalBikes").value || "0";
+            let totalAmount = document.getElementById("totalAmount").value || "0";
+            let change = document.getElementById("change").value || "0";
+            let cash = document.getElementById("cash").value || "0";
+            let transfer = document.getElementById("transfer").value || "0";
+            let expense = document.getElementById("expense").value || "0";
+            let expenseReason = document.getElementById("expenseReason").value || "-";
+            let expenseDeduction = document.getElementById("expenseDeduction").value || "0";
+            let remainingCash = document.getElementById("remainingCash").value || "0";
+            let notes = document.getElementById("notes").value || "-";
 
             let summary = `
-                วันที่: ${date}<br>
-                จำนวนจักรยานที่เช่า: ${totalBikes} คัน<br>
-                จำนวนเงินรวมทั้งหมด: ${totalAmount.toFixed(2)} บาท<br>
-                จำนวนเงินทอน: ${change.toFixed(2)} บาท<br>
-                จำนวนเงินสด: ${cash.toFixed(2)} บาท<br>
-                จำนวนยอดโอน: ${transfer.toFixed(2)} บาท<br>
-                รายจ่ายวันนี้: ${expense.toFixed(2)} บาท (${expenseReason})<br>
-                หักรายจ่าย: ${expenseDeduction.toFixed(2)} บาท<br>
-                เงินสดคงเหลือหลังหักรายจ่าย: ${remainingCash.toFixed(2)} บาท<br>
-                หมายเหตุ: ${notes}<br>
+                <strong>วันที่:</strong> ${date}<br>
+                <strong>จำนวนจักรยานที่เช่า:</strong> ${totalBikes} คัน<br>
+                <strong>จำนวนเงินรวมทั้งหมด:</strong> ${totalAmount} บาท<br>
+                <strong>จำนวนเงินทอน:</strong> ${change} บาท<br>
+                <strong>จำนวนเงินสด:</strong> ${cash} บาท<br>
+                <strong>จำนวนยอดโอน:</strong> ${transfer} บาท<br>
+                <strong>รายจ่ายวันนี้:</strong> ${expense} บาท (${expenseReason})<br>
+                <strong>หักรายจ่าย:</strong> ${expenseDeduction} บาท<br>
+                <strong>เงินสดคงเหลือหลังหักรายจ่าย:</strong> ${remainingCash} บาท<br>
+                <strong>หมายเหตุ:</strong> ${notes}<br>
             `;
 
             document.getElementById("summaryText").innerHTML = summary;
